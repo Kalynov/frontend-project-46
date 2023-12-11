@@ -1,4 +1,6 @@
 import { Command } from 'commander';
+import { readFileSync } from 'node:fs';
+import parseJson from './parseJson.js';
 
 const program = new Command();
 
@@ -8,7 +10,11 @@ program
   .version('1.0.0')
   .option('-f, --format <type>', 'output format')
   .argument('<filepath1>')
-  .argument('<filepath2>');
+  .argument('<filepath2>')
+  .action((filepath1, filepath2) => {
+    console.log(parseJson(readFileSync(filepath1, 'utf8')));
+    console.log(parseJson(readFileSync(filepath2, 'utf8')));
+  });
 
 // program.command('split')
 //   .description('Split a string into substrings and display as an array')
@@ -20,4 +26,4 @@ program
 //     console.log(str.split(options.separator, limit));
 //   });
 
-program.parse();
+export default program;
