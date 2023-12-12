@@ -1,6 +1,4 @@
-export const parseJson = (data) => JSON.parse(data);
-
-export const comparator = (obj1, obj2) => {
+const comparator = (obj1, obj2) => {
   const result = [];
   const obj1Keys = Object.keys(obj1).toSorted();
   const obj2keys = Object.keys(obj2).toSorted();
@@ -23,3 +21,5 @@ export const comparator = (obj1, obj2) => {
   });
   return result;
 };
+
+export default comparator;

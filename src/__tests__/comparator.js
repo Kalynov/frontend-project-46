@@ -22,8 +22,8 @@ const result = [
   ' + verbose: true',
 ];
 
-describe('Is channel Level test', () => {
-  test('flow id', () => {
+describe('comparator test', () => {
+  test('simple objects compaarator', () => {
     expect(comparator(obj1, obj2)).toEqual(result);
   });
 });

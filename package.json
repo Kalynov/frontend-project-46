@@ -30,6 +30,7 @@
     "commander": "^11.1.0",
     "debug": "^4.3.4",
     "fs": "^0.0.1-security",
+    "js-yaml": "^4.1.0",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
