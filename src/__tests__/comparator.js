@@ -1,4 +1,4 @@
-import { comparator } from '../utils.js';
+import comparator from '../utils.js';
 
 const obj1 = {
   host: 'hexlet.io',
