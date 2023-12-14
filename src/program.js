@@ -1,6 +1,7 @@
 import { Command } from 'commander';
 import { readFileSync } from 'node:fs';
-import comparator from './utils.js';
+import comparator from './comparator.js';
+import render from './render.js';
 import { parseJson, parseYaml } from './parsers.js';
 
 const program = new Command();
@@ -30,10 +31,7 @@ program
     }
     const differences = comparator(data1, data2);
     console.log(`{
-  ${differences.map((el, i) => (i !== differences.length - 1
-    ? `${el}
-  `
-    : `${el}`)).join('')}
+${render(differences)}
 }`);
   });
 
