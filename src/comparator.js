@@ -13,8 +13,6 @@ const comparator = (obj1, obj2) => {
     const keyIndex = obj2keys.indexOf(key);
     const key2Index = obj1Keys.indexOf(key);
 
-    // eslint-disable-next-line no-use-before-define
-    objectConditions(obj1, obj2, key, keyIndex, key2Index, result);
     if (obj1[key] instanceof Object || obj2[key] instanceof Object) {
       if (keyIndex !== -1 && key2Index !== -1) {
         if (obj1[key] instanceof Object && !(obj2[key] instanceof Object)) {
@@ -52,11 +50,5 @@ const comparator = (obj1, obj2) => {
   });
   return result;
 };
-
-
-
-function objectConditions(obj1, obj2, key, keyIndex, key2Index, result) {
-
-}
 
 export default comparator;
