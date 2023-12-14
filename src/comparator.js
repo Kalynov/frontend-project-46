@@ -6,46 +6,57 @@ const comparator = (obj1, obj2) => {
   Array.from(set).toSorted().forEach((key) => {
     const keyIndex = obj2keys.indexOf(key);
     const key2Index = obj1Keys.indexOf(key);
-    if (obj1[key] instanceof Object || obj2[key] instanceof Object) {
-      if (keyIndex !== -1 && key2Index !== -1) {
-        if (obj1[key] instanceof Object && !(obj2[key] instanceof Object)) {
-          result.push(` - ${key}: {`);
-          result.push(comparator(obj1[key], obj1[key]));
-          result.push('   }');
-          result.push(` + ${key}: ${obj2[key]}`);
-        } else if (obj2[key] instanceof Object && !(obj1[key] instanceof Object)) {
-          result.push(` - ${key}: ${obj2[key]}`);
-          result.push(` + ${key}: {`);
-          result.push(comparator(obj2[key], obj2[key]));
-          result.push('   }');
-        } else {
-          result.push(`   ${key}: {`);
-          result.push(comparator(obj1[key], obj2[key]));
-          result.push('   }');
-        }
-      } else if (keyIndex === -1) {
-        result.push(` - ${key}: {`);
-        result.push(comparator(obj1[key], obj1[key]));
-        result.push('   }');
-      } else if (key2Index === -1) {
-        result.push(` + ${key}: {`);
-        result.push(comparator(obj2[key], obj2[key]));
-        result.push('   }');
-      }
-    } else if (keyIndex === -1) {
-      result.push(` - ${key}: ${obj1[key]}`);
-    } else if (key2Index === -1) {
-      result.push(` + ${key}: ${obj2[key]}`);
-    } else if (obj1Keys[key] === set[key]) {
-      if (obj1[key] === obj2[key]) {
-        result.push(`   ${key}: ${obj1[key]}`);
-      } else {
+
+    // eslint-disable-next-line no-use-before-define
+    objectConditions(obj1, obj2, key, keyIndex, key2Index, result);
+    if (!(obj1[key] instanceof Object || obj2[key] instanceof Object)) {
+      if (keyIndex === -1) {
         result.push(` - ${key}: ${obj1[key]}`);
+      } else if (key2Index === -1) {
         result.push(` + ${key}: ${obj2[key]}`);
+      } else if (obj1Keys[key] === set[key]) {
+        if (obj1[key] === obj2[key]) {
+          result.push(`   ${key}: ${obj1[key]}`);
+        } else {
+          result.push(` - ${key}: ${obj1[key]}`);
+          result.push(` + ${key}: ${obj2[key]}`);
+        }
       }
     }
   });
   return result;
 };
+
+function putNewBlock(obj, key, result) {
+  result.push(` + ${key}: {`);
+  result.push(comparator(obj[key], obj[key]));
+  result.push('   }');
+}
+
+function objectConditions(obj1, obj2, key, keyIndex, key2Index, result) {
+  if (obj1[key] instanceof Object || obj2[key] instanceof Object) {
+    if (keyIndex !== -1 && key2Index !== -1) {
+      if (obj1[key] instanceof Object && !(obj2[key] instanceof Object)) {
+        result.push(` - ${key}: {`);
+        result.push(comparator(obj1[key], obj1[key]));
+        result.push('   }');
+        result.push(` + ${key}: ${obj2[key]}`);
+      } else if (obj2[key] instanceof Object && !(obj1[key] instanceof Object)) {
+        result.push(` - ${key}: ${obj2[key]}`);
+        putNewBlock(obj2, key, result);
+      } else {
+        result.push(`   ${key}: {`);
+        result.push(comparator(obj1[key], obj2[key]));
+        result.push('   }');
+      }
+    } else if (keyIndex === -1) {
+      result.push(` - ${key}: {`);
+      result.push(comparator(obj1[key], obj1[key]));
+      result.push('   }');
+    } else if (key2Index === -1) {
+      putNewBlock(obj2, key, result);
+    }
+  }
+}
 
 export default comparator;

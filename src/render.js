@@ -3,7 +3,10 @@ const render = (differences, deep = 0) => differences.map((dif, i) => {
   if (Array.isArray(dif)) {
     return render(dif, deep + 1);
   }
-  return (deep === 0 && i === differences.length - 1) ? `${margin}${dif}` : `${margin}${dif}
+  if (deep === 0 && i === differences.length - 1) {
+    return `${margin}${dif}`;
+  }
+  return `${margin}${dif}
 `;
 }).join('');
 
