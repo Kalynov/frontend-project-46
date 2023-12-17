@@ -30,9 +30,8 @@ program
         throw new Error('Uncnown extension');
     }
     const differences = comparator(data1, data2);
-    console.log(`{
-${render(differences)}
-}`);
+    //console.log(JSON.stringify(differences));
+    console.log(render(differences));
   });
 
 export default program;
