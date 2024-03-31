@@ -1,4 +1,6 @@
-import { ADDED, REMOVED, CHANGED, WITHOUTCHANGE } from '../constants.js';
+import {
+  ADDED, REMOVED, CHANGED, WITHOUTCHANGE,
+} from '../constants.js';
 
 const signs = {
   [ADDED]: 'was added with value:',

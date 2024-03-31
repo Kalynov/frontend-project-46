@@ -125,7 +125,7 @@ const comparator = (obj1, obj2) => {
         state: CHANGED,
         value0: obj1[key],
         value1: obj2[key],
-        //childrens: comparator(obj1[key], obj1[key]),
+        // childrens: comparator(obj1[key], obj1[key]),
       });
       return;
     }
@@ -136,7 +136,7 @@ const comparator = (obj1, obj2) => {
         state: CHANGED,
         value0: obj1[key],
         value1: obj2[key],
-        //childrens: comparator(obj2[key], obj2[key]),
+        // childrens: comparator(obj2[key], obj2[key]),
       });
       return;
     }
@@ -158,7 +158,6 @@ const comparator = (obj1, obj2) => {
       value1: obj2[key],
     });
   });
-  //console.log(JSON.stringify(compareThree));
   return compareThree.sort(compareSorter);
 };
 

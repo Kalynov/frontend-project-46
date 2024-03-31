@@ -1,4 +1,6 @@
-import { ADDED, REMOVED, WITHOUTCHANGE, CHANGED } from '../constants.js';
+import {
+  ADDED, REMOVED, WITHOUTCHANGE, CHANGED,
+} from '../constants.js';
 
 const signs = {
   [ADDED]: ' + ',
@@ -12,7 +14,7 @@ const stringify = (value, deep) => {
   if (value instanceof Object) {
     return `{\n${Object.keys(value).map((key) => `   ${getMargin(deep + 1)}   ${key}: ${stringify(value[key], deep + 1)}\n`).join('')}   ${getMargin(deep)}   }`;
   }
-  console.log(String(value));
+  // console.log(String(value));
   return String(value);
 };
 
