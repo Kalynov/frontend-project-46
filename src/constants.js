@@ -8,3 +8,4 @@ export const PRIMITIVE = 'primitive';
 
 export const STYLYSH = 'stylish';
 export const PLAIN = 'plain';
+export const JSON_ID = 'json';

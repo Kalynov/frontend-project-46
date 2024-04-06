@@ -1,13 +1,14 @@
 import { readFileSync } from 'fs';
 import { parseJson, parseYaml } from './parsers.js';
 import comparator from './comparator.js';
-import { PLAIN, STYLYSH } from './constants.js';
+import { PLAIN, STYLYSH, JSON_ID } from './constants.js';
 import stylish from './formatters/stylish.js';
 import plain from './formatters/plain.js';
 
 const output = {
   [STYLYSH]: stylish,
   [PLAIN]: plain,
+  [JSON_ID]: (data) => JSON.stringify(data),
 };
 
 const gendiff = (filepath1, filepath2, options) => {
