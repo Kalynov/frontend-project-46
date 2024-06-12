@@ -11,7 +11,7 @@ const output = {
   [JSON_ID]: (data) => JSON.stringify(data),
 };
 
-const gendiff = (filepath1, filepath2, options) => {
+const gendiff = (filepath1, filepath2, format) => {
   const type = filepath1.split('.').pop();
   let data1; let data2;
   switch (type) {
@@ -28,6 +28,6 @@ const gendiff = (filepath1, filepath2, options) => {
       throw new Error('Uncnown extension');
   }
   const differences = comparator(data1, data2);
-  return (output[options?.format] || stylish)(differences);
+  return (output[format] || stylish)(differences);
 };
 export default gendiff;

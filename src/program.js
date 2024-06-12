@@ -11,6 +11,6 @@ program
   .option('-f, --format <type>', 'output format', STYLYSH)
   .argument('<filepath1>')
   .argument('<filepath2>')
-  .action((...params) => console.log(gendiff(...params)));
+  .action((path1, path2, { format }) => console.log(gendiff(path1, path2, format)));
 
 export default program;

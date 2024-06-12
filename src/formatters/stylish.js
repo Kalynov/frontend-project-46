@@ -20,9 +20,6 @@ const stringify = (value, deep) => {
 
 const stylish = (differences, deep = 1) => {
   const result = differences.map((dif) => {
-    if (dif.key === 'doge') {
-      console.log(deep);
-    }
     if (dif.childrens) {
       if (dif.state === CHANGED) {
         return `${getMargin(deep)}${signs[REMOVED]}${dif.key}: ${stylish(dif.childrens, deep + 1)}\n${getMargin(deep)}${signs[ADDED]}${dif.key}: ${stylish(dif.childrens, deep + 1)}`;
@@ -47,7 +44,6 @@ const stylish = (differences, deep = 1) => {
     }
   });
 
-  console.log(result);
   return `{\n${result.join('\n')}\n${deep !== 1 ? `${getMargin(deep - 1)}  }` : '}'}`;
 };
 
