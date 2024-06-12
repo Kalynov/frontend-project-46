@@ -24,31 +24,26 @@ const stringify = (value) => {
 };
 
 const plain = (differences, parent) => {
-  const result = [];
-  differences.forEach((dif) => {
+  const result = differences.map((dif) => {
     if (dif.childrens) {
-      result.push(plain(dif.childrens, getFullKey(dif.key, parent)));
-      return;
+      return (plain(dif.childrens, getFullKey(dif.key, parent)));
     }
     const prev = dif.value0;
     const current = dif.value1;
     switch (dif.state) {
       case ADDED:
-        result.push(`Property '${getFullKey(dif.key, parent)}' ${signs[ADDED]} ${stringify(current)}`);
-        break;
+        return (`Property '${getFullKey(dif.key, parent)}' ${signs[ADDED]} ${stringify(current)}`);
       case REMOVED:
-        result.push(`Property '${getFullKey(dif.key, parent)}' ${signs[REMOVED]}`);
-        break;
+        return (`Property '${getFullKey(dif.key, parent)}' ${signs[REMOVED]}`);
       case CHANGED:
-        result.push(`Property '${getFullKey(dif.key, parent)}' ${signs[CHANGED]} ${stringify(prev)} to ${stringify(current)}`);
-        break;
+        return (`Property '${getFullKey(dif.key, parent)}' ${signs[CHANGED]} ${stringify(prev)} to ${stringify(current)}`);
       case WITHOUTCHANGE:
-        break;
+        return '';
       default:
         throw new Error('unknown state');
     }
   });
-  return result.join('\n');
+  return result.filter((el) => el !== '').join('\n');
 };
 
 export default plain;

@@ -89,69 +89,62 @@ const compareSorter = (a, b) => {
 const comparator = (obj1, obj2) => {
   const keys = new Set(Object.keys(obj1).concat(Object.keys(obj2)));
 
-  const compareThree = [];
-  keys.forEach((key) => {
+  const compareThree = Array.from(keys).map((key) => {
     if (!Object.hasOwn(obj1, key)) {
-      compareThree.push({
+      return ({
         key,
         state: ADDED,
         value1: obj2[key],
       });
-      return;
     }
     if (!Object.hasOwn(obj2, key)) {
-      compareThree.push({
+      return ({
         key,
         state: REMOVED,
         value0: obj1[key],
       });
-      return;
     }
 
     if (obj2[key] instanceof Object && obj1[key] instanceof Object) {
-      compareThree.push({
+      return ({
         key,
         state: WITHOUTCHANGE,
         value0: obj1[key],
         value1: obj2[key],
         childrens: comparator(obj1[key], obj2[key]),
       });
-      return;
     }
 
     if (!(obj2[key] instanceof Object) && obj1[key] instanceof Object) {
-      compareThree.push({
+      return ({
         key,
         state: CHANGED,
         value0: obj1[key],
         value1: obj2[key],
         // childrens: comparator(obj1[key], obj1[key]),
       });
-      return;
     }
 
     if (obj2[key] instanceof Object && !(obj1[key] instanceof Object)) {
-      compareThree.push({
+      return ({
         key,
         state: CHANGED,
         value0: obj1[key],
         value1: obj2[key],
         // childrens: comparator(obj2[key], obj2[key]),
       });
-      return;
     }
 
     if (obj1[key] !== obj2[key]) {
-      compareThree.push({
+      return ({
         key,
         state: CHANGED,
         value0: obj1[key],
         value1: obj2[key],
       });
-      return;
     }
 
-    compareThree.push({
+    return ({
       key,
       state: WITHOUTCHANGE,
       value0: obj2[key],
