@@ -8,24 +8,36 @@ const signs = {
   [CHANGED]: 'was updated. From',
 };
 
-const plain = (differences) => {
+const getFullKey = (key, parent) => (parent ? `${parent}.${key}` : `${key}`);
+
+const stringify = (value) => {
+  if (typeof value === 'object') {
+    return '[complex value]';
+  }
+  if (typeof value === 'string') {
+    return `'${value}'`;
+  }
+  return value;
+};
+
+const plain = (differences, parent) => {
   const result = [];
   differences.forEach((dif) => {
     if (dif.childrens) {
-      result.push(plain(dif.childrens));
+      result.push(plain(dif.childrens, getFullKey(dif.key, parent)));
       return;
     }
-    const prev = typeof dif.value0 === 'object' ? '[complex value]' : dif.value0;
-    const current = typeof dif.value1 === 'object' ? '[complex value]' : dif.value1;
+    const prev = dif.value0;
+    const current = dif.value1;
     switch (dif.state) {
       case ADDED:
-        result.push(`Property ${dif.key} ${signs[ADDED]} ${current}`);
+        result.push(`Property '${getFullKey(dif.key, parent)}' ${signs[ADDED]} ${stringify(current)}`);
         break;
       case REMOVED:
-        result.push(`Property ${dif.key} ${signs[REMOVED]}`);
+        result.push(`Property '${getFullKey(dif.key, parent)}' ${signs[REMOVED]}`);
         break;
       case CHANGED:
-        result.push(`Property ${dif.key} ${signs[CHANGED]} ${prev} to ${current}`);
+        result.push(`Property '${getFullKey(dif.key, parent)}' ${signs[CHANGED]} ${stringify(prev)} to ${stringify(current)}`);
         break;
       case WITHOUTCHANGE:
         break;
