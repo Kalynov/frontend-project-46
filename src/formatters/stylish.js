@@ -3,16 +3,16 @@ import {
 } from '../constants.js';
 
 const signs = {
-  [ADDED]: ' + ',
-  [REMOVED]: ' - ',
-  [WITHOUTCHANGE]: '   ',
+  [ADDED]: '+ ',
+  [REMOVED]: '- ',
+  [WITHOUTCHANGE]: '  ',
 };
 
-const getMargin = (deep = 1, spacesCount = 4) => ' '.repeat(deep * spacesCount - 3);
+const getMargin = (deep = 1, spacesCount = 4) => ' '.repeat(deep * spacesCount - 2);
 
 const stringify = (value, deep) => {
   if (value instanceof Object) {
-    return `{\n${Object.keys(value).map((key) => `${getMargin(deep + 1)}${key}: ${stringify(value[key], deep + 1)}\n`).join('')}${getMargin(deep)}}`;
+    return `{\n${Object.keys(value).map((key) => `  ${getMargin(deep + 1)}${key}: ${stringify(value[key], deep + 1)}`).join('\n')}\n${getMargin(deep)}  }`;
   }
   // console.log(String(value));
   return String(value);
@@ -20,10 +20,12 @@ const stringify = (value, deep) => {
 
 const stylish = (differences, deep = 1) => {
   const result = differences.map((dif) => {
+    if (dif.key === 'doge') {
+      console.log(deep);
+    }
     if (dif.childrens) {
       if (dif.state === CHANGED) {
-        return `${getMargin(deep)}${signs[REMOVED]}${dif.key}: ${stylish(dif.childrens, deep + 1)}
-${getMargin(deep)}${signs[ADDED]}${dif.key}: ${stylish(dif.childrens, deep + 1)}`;
+        return `${getMargin(deep)}${signs[REMOVED]}${dif.key}: ${stylish(dif.childrens, deep + 1)}\n${getMargin(deep)}${signs[ADDED]}${dif.key}: ${stylish(dif.childrens, deep + 1)}`;
       }
       return `${getMargin(deep)}${signs[dif.state]}${dif.key}: ${stylish(dif.childrens, deep + 1)}`;
     }
@@ -38,14 +40,15 @@ ${getMargin(deep)}${signs[ADDED]}${dif.key}: ${stylish(dif.childrens, deep + 1)}
           : `${getMargin(deep)}${signs[dif.state]}${dif.key}: ${stringify(dif.value0, deep)}`;
       }
       case CHANGED: {
-        return `${getMargin(deep)}${signs[REMOVED]}${dif.key}: ${stringify(dif.value0, deep)}
-${getMargin(deep)}${signs[ADDED]}${dif.key}: ${stringify(dif.value1, deep)}`;
+        return `${getMargin(deep)}${signs[REMOVED]}${dif.key}: ${stringify(dif.value0, deep)}\n${getMargin(deep)}${signs[ADDED]}${dif.key}: ${stringify(dif.value1, deep)}`;
       }
       default:
         return '';
     }
   });
-  return `{\n${result.join('\n')}\n   ${deep !== 1 ? getMargin(deep) : ''}}`;
+
+  console.log(result);
+  return `{\n${result.join('\n')}\n${deep !== 1 ? `${getMargin(deep - 1)}  }` : '}'}`;
 };
 
 export default stylish;
