@@ -14,7 +14,7 @@
   "scripts": {
     "test": "npx jest"
   },
-  "main": "src/gendiff.js",
+  "main": "src/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kalynov/frontend-project-46.git"
