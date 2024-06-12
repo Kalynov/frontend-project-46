@@ -151,7 +151,7 @@ const comparator = (obj1, obj2) => {
       value1: obj2[key],
     });
   });
-  return compareThree.sort(compareSorter);
+  return compareThree.toSorted(compareSorter);
 };
 
 export default comparator;
