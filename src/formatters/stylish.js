@@ -8,7 +8,7 @@ const signs = {
   [WITHOUTCHANGE]: '   ',
 };
 
-const getMargin = (deep = 1, spacesCount = 4) => ' '.repeat(deep * spacesCount - 2);
+const getMargin = (deep = 1, spacesCount = 4) => ' '.repeat(deep * spacesCount - 3);
 
 const stringify = (value, deep) => {
   if (value instanceof Object) {
@@ -35,7 +35,7 @@ ${getMargin(deep)}${signs[ADDED]}${dif.key}: ${stylish(dif.childrens, deep + 1)}
       case WITHOUTCHANGE: {
         return deep !== 1
           ? `${getMargin(deep)}${signs[dif.state]}${dif.key}: ${stringify(dif.value0, deep)}`
-          : `${getMargin(deep)}${dif.key}: ${stringify(dif.value0, deep)}`;
+          : `${getMargin(deep)}${signs[dif.state]}${dif.key}: ${stringify(dif.value0, deep)}`;
       }
       case CHANGED: {
         return `${getMargin(deep)}${signs[REMOVED]}${dif.key}: ${stringify(dif.value0, deep)}
@@ -45,7 +45,7 @@ ${getMargin(deep)}${signs[ADDED]}${dif.key}: ${stringify(dif.value1, deep)}`;
         return '';
     }
   });
-  return `{\n${result.join('\n')}\n${getMargin(deep)}}`;
+  return `{\n${result.join('\n')}\n   ${deep !== 1 ? getMargin(deep) : ''}}`;
 };
 
 export default stylish;
