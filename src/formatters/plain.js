@@ -11,6 +11,9 @@ const signs = {
 const getFullKey = (key, parent) => (parent ? `${parent}.${key}` : `${key}`);
 
 const stringify = (value) => {
+  if (value === null) {
+    return 'null';
+  }
   if (typeof value === 'object') {
     return '[complex value]';
   }
