@@ -58,8 +58,8 @@ const comparator = (obj1, obj2) => {
       state: WITHOUTCHANGE,
       value0: obj2[key],
       value1: obj2[key],
-      childrens: (obj2[key] instanceof Object && obj1[key] instanceof Object) 
-        ? comparator(obj1[key], obj2[key]) 
+      childrens: (obj2[key] instanceof Object && obj1[key] instanceof Object)
+        ? comparator(obj1[key], obj2[key])
         : undefined,
     });
   });
