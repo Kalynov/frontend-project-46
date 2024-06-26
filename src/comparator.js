@@ -28,21 +28,21 @@ const compareSorter = (a, b) => {
 
 const getStatus = (obj1, obj2, key) => {
   if (!Object.hasOwn(obj1, key)) {
-    return ADDED
+    return ADDED;
   }
   if (!Object.hasOwn(obj2, key)) {
-    return REMOVED
+    return REMOVED;
   }
   if (obj2[key] instanceof Object && obj1[key] instanceof Object) {
-    return WITHOUTCHANGE
+    return WITHOUTCHANGE;
   }
   if ((!(obj2[key] instanceof Object) && obj1[key] instanceof Object)
     || (obj2[key] instanceof Object && !(obj1[key] instanceof Object))
     || (obj1[key] !== obj2[key])) {
-    return CHANGED
+    return CHANGED;
   }
   return WITHOUTCHANGE;
-}
+};
 
 const comparator = (obj1, obj2) => {
   const keys = new Set(Object.keys(obj1).concat(Object.keys(obj2)));
@@ -69,7 +69,7 @@ const comparator = (obj1, obj2) => {
           value1: obj2[key],
         });
       case WITHOUTCHANGE:
-      default: 
+      default:
         return ({
           key,
           state: WITHOUTCHANGE,
