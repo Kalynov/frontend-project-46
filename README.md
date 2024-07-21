@@ -14,4 +14,4 @@
 
 
 ### Asciinema
-https://asciinema.org/a/vNFgehgn90Op6igaEqtRVJykW
+[![asciicast](https://asciinema.org/a/vNFgehgn90Op6igaEqtRVJykW.svg)](https://asciinema.org/a/vNFgehgn90Op6igaEqtRVJykW)
