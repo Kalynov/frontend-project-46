@@ -1,4 +1,6 @@
 #!/usr/bin/env node
-import program from '../src/program.js';
+import initProgram from '../src/initProgram.js';
+
+const program = initProgram();
 
 program.parse();

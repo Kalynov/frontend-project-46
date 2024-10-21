@@ -66,6 +66,9 @@ const comparator = (obj1, obj2) => {
           key,
           state: status,
           value0: obj1[key],
+          // мы сравниваем не 2 версии одного объекта(файла) а два разных объекта,
+          // здесь нет старых и новых значений, поэтому value0 и value1 понятные названия
+          // передающие суть переменных
           value1: obj2[key],
         });
       case WITHOUTCHANGE:

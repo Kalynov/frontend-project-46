@@ -40,7 +40,7 @@ const plain = (differences, parent) => {
       case WITHOUTCHANGE:
         return '';
       default:
-        throw new Error('unknown state');
+        throw new Error(`unknown state: ${dif.state} in object: ${JSON.stringify(dif)}`);
     }
   });
   return result.filter((el) => el !== '').join('\n');
